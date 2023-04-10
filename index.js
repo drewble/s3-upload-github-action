@@ -18,9 +18,16 @@ const uploadFile = (fileName) => {
     const fileContent = fs.readFileSync(fileName);
 
     // Setting up S3 upload parameters
+    var key;
+    if (process.env.S3_DESTINATION) {
+      key = process.env.S3_DESTINATION + '/' + `${path.normalize(fileName)}`
+    } else {
+      key = `${path.normalize(fileName)}`
+    }
+
     const params = {
       Bucket: process.env.S3_BUCKET,
-      Key: `${path.normalize(fileName)}`,
+      Key: key,
       Body: fileContent,
     };
     const acl = process.env.S3_ACL;

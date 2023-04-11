@@ -20,7 +20,7 @@ const uploadFile = (fileName) => {
     // Setting up S3 upload parameters
     var key;
     if (process.env.S3_DESTINATION) {
-      key = process.env.S3_DESTINATION + '/' + `${path.normalize(fileName)}`
+      key = process.env.S3_DESTINATION + '/' + `${path.basename(fileName)}`
     } else {
       key = `${path.normalize(fileName)}`
     }
